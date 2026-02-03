@@ -6,7 +6,7 @@ import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
 
 export default defineConfig(() => ({
   root: import.meta.dirname,
-  cacheDir: '../node_modules/.vite/web',
+  cacheDir: '../../node_modules/.vite/web',  // Changed from '../node_modules'
   server: {
     port: 4200,
     host: 'localhost',
@@ -16,12 +16,8 @@ export default defineConfig(() => ({
     host: 'localhost',
   },
   plugins: [vue(), nxViteTsPaths(), nxCopyAssetsPlugin(['*.md'])],
-  // Uncomment this if you are using workers.
-  // worker: {
-  //   plugins: () => [ nxViteTsPaths() ],
-  // },
   build: {
-    outDir: '../dist/web',
+    outDir: '../../dist/apps/web',  // Changed from '../dist/web'
     emptyOutDir: true,
     reportCompressedSize: true,
     commonjsOptions: {
@@ -36,7 +32,7 @@ export default defineConfig(() => ({
     include: ['{src,tests}/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     reporters: ['default'],
     coverage: {
-      reportsDirectory: '../coverage/web',
+      reportsDirectory: '../../coverage/web',  // Changed from '../coverage/web'
       provider: 'v8' as const,
     },
   },
