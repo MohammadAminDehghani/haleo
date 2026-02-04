@@ -3,7 +3,7 @@ import HomeView from '../views/HomeView.vue';
 import TodoView from '../views/TodoView.vue';
 import ArticlesView from '../views/ArticlesView.vue';
 import ActivitiesView from '../views/ActivitiesView.vue';
-import ProfileView from '../views/ProfileView.vue';
+import UserView from '../views/UserView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,7 +31,7 @@ const router = createRouter({
     {
       path: '/profile',
       name: 'profile',
-      component: ProfileView,
+      component: UserView,
     },
   ],
 });

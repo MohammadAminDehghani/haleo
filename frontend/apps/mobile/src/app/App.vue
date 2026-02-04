@@ -36,7 +36,7 @@ const pageTitle = computed(() => {
           <span class="menu-label">Activities</span>
         </RouterLink>
         <RouterLink to="/profile" class="menu-item">
-          <span class="menu-label">Profile</span>
+          <span class="menu-label">User</span>
         </RouterLink>
       </nav>
     </footer>
