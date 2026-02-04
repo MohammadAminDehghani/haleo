@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import { articleService } from '../services/article.service';
 import { todoService } from '../services/todo.service';
 import { activityService } from '../services/activity.service';
+import LoadingSpinner from '../components/LoadingSpinner.vue';
 import type { Article } from '../types/article.types';
 import type { Todo } from '../types/todo.types';
 import type { Activity } from '../types/activity.types';
@@ -40,7 +41,7 @@ onMounted(async () => {
   <div class="home-view">
     <h1>Home</h1>
 
-    <div v-if="loading" class="loading">Loading...</div>
+    <LoadingSpinner v-if="loading" message="Loading..." />
     <div v-else-if="error" class="error">{{ error }}</div>
     <div v-else class="content">
       <div class="stats">
@@ -66,7 +67,6 @@ onMounted(async () => {
   padding: 1rem;
 }
 
-.loading,
 .error {
   text-align: center;
   padding: 2rem;

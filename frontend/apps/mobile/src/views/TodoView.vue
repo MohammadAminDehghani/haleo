@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { todoService } from '../services/todo.service';
+import LoadingSpinner from '../components/LoadingSpinner.vue';
 import type { Todo } from '../types/todo.types';
 
 const todos = ref<Todo[]>([]);
@@ -25,7 +26,7 @@ onMounted(async () => {
   <div class="todo-view">
     <h1>Todo</h1>
 
-    <div v-if="loading" class="loading">Loading todos...</div>
+    <LoadingSpinner v-if="loading" message="Loading todos..." />
     <div v-else-if="error" class="error">{{ error }}</div>
     <div v-else-if="todos.length === 0" class="empty">No todos found</div>
     <div v-else class="todos-list">
@@ -48,7 +49,6 @@ onMounted(async () => {
   padding: 1rem;
 }
 
-.loading,
 .error,
 .empty {
   text-align: center;

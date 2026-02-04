@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { activityService } from '../services/activity.service';
+import LoadingSpinner from '../components/LoadingSpinner.vue';
 import type { Activity } from '../types/activity.types';
 
 const activities = ref<Activity[]>([]);
@@ -25,7 +26,7 @@ onMounted(async () => {
   <div class="activities-view">
     <h1>Activities</h1>
 
-    <div v-if="loading" class="loading">Loading activities...</div>
+    <LoadingSpinner v-if="loading" message="Loading activities..." />
     <div v-else-if="error" class="error">{{ error }}</div>
     <div v-else-if="activities.length === 0" class="empty">No activities found</div>
     <div v-else class="activities-list">
@@ -46,7 +47,6 @@ onMounted(async () => {
   padding: 1rem;
 }
 
-.loading,
 .error,
 .empty {
   text-align: center;

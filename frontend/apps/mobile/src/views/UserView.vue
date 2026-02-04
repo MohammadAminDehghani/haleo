@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { userService } from '../services/user.service';
+import LoadingSpinner from '../components/LoadingSpinner.vue';
 import type { User } from '../types/user.types';
 
 const user = ref<User | null>(null);
@@ -26,7 +27,7 @@ onMounted(async () => {
   <div class="user-view">
     <h1>User</h1>
 
-    <div v-if="loading" class="loading">Loading profile...</div>
+    <LoadingSpinner v-if="loading" message="Loading profile..." />
     <div v-else-if="error" class="error">{{ error }}</div>
     <div v-else-if="user" class="user-profile">
       <div class="profile-item">
@@ -50,7 +51,6 @@ onMounted(async () => {
   padding: 1rem;
 }
 
-.loading,
 .error {
   text-align: center;
   padding: 2rem;
