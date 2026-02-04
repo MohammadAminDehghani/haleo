@@ -1,44 +1,111 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router';
+import { RouterLink, RouterView, useRoute } from 'vue-router';
+import { computed } from 'vue';
+
+const route = useRoute();
+
+const pageTitle = computed(() => {
+  const routeName = route.name as string;
+  if (!routeName) return 'Home';
+  return routeName.charAt(0).toUpperCase() + routeName.slice(1);
+});
 </script>
 
 <template>
-  <header>
-    <nav>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
-    </nav>
-  </header>
-  <RouterView />
+  <div class="app-layout">
+    <header class="app-header">
+      <h1>{{ pageTitle }}</h1>
+    </header>
+
+    <main class="app-main">
+      <RouterView />
+    </main>
+
+    <footer class="app-footer">
+      <nav class="footer-menu">
+        <RouterLink to="/todo" class="menu-item">
+          <span class="menu-label">Todo</span>
+        </RouterLink>
+        <RouterLink to="/articles" class="menu-item">
+          <span class="menu-label">Articles</span>
+        </RouterLink>
+        <RouterLink to="/" class="menu-item">
+          <span class="menu-label">Home</span>
+        </RouterLink>
+        <RouterLink to="/activities" class="menu-item">
+          <span class="menu-label">Activities</span>
+        </RouterLink>
+        <RouterLink to="/profile" class="menu-item">
+          <span class="menu-label">Profile</span>
+        </RouterLink>
+      </nav>
+    </footer>
+  </div>
 </template>
 
 <style scoped lang="css">
-header {
-  line-height: 1.5;
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
   max-width: 100vw;
 }
 
-nav > a {
-  padding-left: 1rem;
-  padding-right: 1rem;
+.app-header {
+  background-color: #f0f0f0;
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  flex-shrink: 0;
 }
 
-@media (min-width: 768px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 768px;
-  }
+.app-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
 
-  nav {
-    text-align: left;
-    font-size: 1rem;
+.app-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0;
+}
 
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+.app-footer {
+  background-color: #f0f0f0;
+  border-top: 1px solid #ddd;
+  flex-shrink: 0;
+}
+
+.footer-menu {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.75rem 0;
+}
+
+.menu-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #666;
+  padding: 0.5rem 1rem;
+  transition: color 0.2s;
+  flex: 1;
+}
+
+.menu-item:hover {
+  color: #333;
+}
+
+.menu-item.router-link-active {
+  color: #007bff;
+  font-weight: 600;
+}
+
+.menu-label {
+  font-size: 0.875rem;
+  text-align: center;
 }
 </style>

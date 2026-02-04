@@ -2,14 +2,14 @@
 </script>
 
 <template>
-  <div class="home-view">
-    <h1>Home</h1>
-    <p>Welcome to the home page</p>
+  <div class="articles-view">
+    <h1>Articles</h1>
+    <p>Your articles will appear here</p>
   </div>
 </template>
 
 <style scoped>
-.home-view {
+.articles-view {
   padding: 1rem;
 }
 </style>

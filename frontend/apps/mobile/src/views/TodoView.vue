@@ -2,14 +2,14 @@
 </script>
 
 <template>
-  <div class="home-view">
-    <h1>Home</h1>
-    <p>Welcome to the home page</p>
+  <div class="todo-view">
+    <h1>Todo</h1>
+    <p>Your todo items will appear here</p>
   </div>
 </template>
 
 <style scoped>
-.home-view {
+.todo-view {
   padding: 1rem;
 }
 </style>
