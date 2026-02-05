@@ -51,6 +51,7 @@
     "@capacitor/cli": "^8.0.2",
     "@capacitor/core": "^8.0.2",
     "@capacitor/ios": "^8.0.2",
+    "@capacitor/preferences": "^8.0.0",
     "@ionic/core": "^8.7.17",
     "@ionic/vue": "^8.7.17",
     "axios": "^1.13.4",

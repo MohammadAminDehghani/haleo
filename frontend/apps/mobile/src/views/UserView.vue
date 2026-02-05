@@ -1,47 +1,41 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { userService } from '../services/user.service';
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '../stores/auth.store';
 import LoadingSpinner from '../components/LoadingSpinner.vue';
-import type { User } from '../types/user.types';
 
-const user = ref<User | null>(null);
-const loading = ref(true);
-const error = ref<string | null>(null);
+const router = useRouter();
+const authStore = useAuthStore();
 
-onMounted(async () => {
+const handleLogout = async () => {
   try {
-    loading.value = true;
-    error.value = null;
-    user.value = await userService.getProfile(1);
-
-  } catch (err) {
-    error.value = 'Failed to load user profile';
-    console.error('Error loading user profile:', err);
-  } finally {
-    loading.value = false;
+    await authStore.logout();
+    router.push('/login');
+  } catch (error) {
+    console.error('Error during logout:', error);
   }
-});
+};
 </script>
 
 <template>
   <div class="user-view">
     <h1>User</h1>
 
-    <LoadingSpinner v-if="loading" message="Loading profile..." />
-    <div v-else-if="error" class="error">{{ error }}</div>
-    <div v-else-if="user" class="user-profile">
+    <LoadingSpinner v-if="authStore.isLoading" message="Loading profile..." />
+    <div v-else-if="!authStore.user" class="error">No user data available</div>
+    <div v-else class="user-profile">
       <div class="profile-item">
         <label>Name:</label>
-        <p>{{ user.name }}</p>
+        <p>{{ authStore.user.name }}</p>
       </div>
       <div class="profile-item">
         <label>Email:</label>
-        <p>{{ user.email }}</p>
+        <p>{{ authStore.user.email }}</p>
       </div>
       <div class="profile-item">
         <label>Member since:</label>
-        <p>{{ new Date(user.created_at).toLocaleDateString() }}</p>
+        <p>{{ new Date(authStore.user.created_at).toLocaleDateString() }}</p>
       </div>
+      <button @click="handleLogout" class="logout-button">Logout</button>
     </div>
   </div>
 </template>
@@ -85,6 +79,24 @@ onMounted(async () => {
   margin: 0;
   font-size: 1rem;
   color: #333;
+}
+
+.logout-button {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+.logout-button:hover {
+  background-color: #c82333;
 }
 </style>
 

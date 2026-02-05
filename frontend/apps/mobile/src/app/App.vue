@@ -1,13 +1,22 @@
 <script setup lang="ts">
 import { RouterLink, RouterView, useRoute } from 'vue-router';
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
+import { useAuthStore } from '../stores/auth.store';
 
 const route = useRoute();
+const authStore = useAuthStore();
 
 const pageTitle = computed(() => {
   const routeName = route.name as string;
   if (!routeName) return 'Home';
   return routeName.charAt(0).toUpperCase() + routeName.slice(1);
+});
+
+onMounted(async () => {
+  // Initialize auth state on app mount
+  if (!authStore.isInitialized) {
+    await authStore.checkAuth();
+  }
 });
 </script>
 
